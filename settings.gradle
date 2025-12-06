@@ -10,5 +10,5 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
-rootProject.name = 'CA2_DevOps'
+rootProject.name = 'X00197973_CA3'
 include('app')
