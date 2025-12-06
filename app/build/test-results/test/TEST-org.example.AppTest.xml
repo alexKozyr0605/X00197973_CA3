@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.AppTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-03T18:08:47.395Z" hostname="LAPTOP-6TES34FA" time="0.126">
-  <properties/>
-  <testcase name="appHasEuroConverter()" classname="org.example.AppTest" time="0.119"/>
-  <testcase name="appHasYenConverter()" classname="org.example.AppTest" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
