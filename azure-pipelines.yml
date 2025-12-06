@@ -38,6 +38,7 @@ steps:
     jdkArchitectureOption: 'x64'
     tasks: 'showProjectInfo'
 
+stages:
 - stage: SecurityScanning
   displayName: 'Security Scanning'
   jobs:
