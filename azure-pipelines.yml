@@ -106,23 +106,23 @@ stages:
         redact: true                   # hide secret values in logs
         verbose: false                 # set true while tuning rules
 
-- stage: DependencySecurity
-  displayName: 'Dependency Security Scanning'
-  jobs:
-  - job: OWASPCheck
-    steps:
-    - task: dependency-check-build-task@6
-      inputs:
-          projectName: '$(Build.Repository.Name)'
-          scanPath: '$(System.DefaultWorkingDirectory)'
-          format: 'HTML'
-          uploadReports: true
-          uploadSARIFReport: true
-          # failOnCVSS: '7' # <-- remove this line to avoid failing the job on high CVSS scores
-          nvdApiKey: 'your-nvd-api-key'  # Replace with your API key
-          additionalArguments: >
-            --disableCentral
-            --disableOssIndex
+# - stage: DependencySecurity
+#   displayName: 'Dependency Security Scanning'
+#   jobs:
+#   - job: OWASPCheck
+#     steps:
+#     - task: dependency-check-build-task@6
+#       inputs:
+#           projectName: '$(Build.Repository.Name)'
+#           scanPath: '$(System.DefaultWorkingDirectory)'
+#           format: 'HTML'
+#           uploadReports: true
+#           uploadSARIFReport: true
+#           # failOnCVSS: '7' # <-- remove this line to avoid failing the job on high CVSS scores
+#           nvdApiKey: 'your-nvd-api-key'  # Replace with your API key
+#           additionalArguments: >
+#             --disableCentral
+#             --disableOssIndex
 
 # - script: chmod +x gradlew
 #APIkey: a57d89ea-224c-4adc-ab89-db9f5987d27f

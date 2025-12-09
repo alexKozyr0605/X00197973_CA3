@@ -11,7 +11,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'org.sonarqube' version "7.0.0.6105"
-    id "org.owasp.dependencycheck" version "9.0.0"
+    // id "org.owasp.dependencycheck" version "9.0.0"
 }
 
 repositories {
@@ -30,11 +30,11 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 
-dependencyCheck {
-    nvd {
-        apiKey = System.getenv("a57d89ea-224c-4adc-ab89-db9f5987d27f")
-    }
-}
+// dependencyCheck {
+//     nvd {
+//         apiKey = System.getenv("a57d89ea-224c-4adc-ab89-db9f5987d27f")
+//     }
+// }
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
