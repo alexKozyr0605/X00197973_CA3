@@ -29,6 +29,10 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 
+dependencyCheck {
+    nvdApiKey = System.getenv("a57d89ea-224c-4adc-ab89-db9f5987d27f")
+}
+
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
