@@ -65,13 +65,13 @@ stages:
       fetchDepth: 0
 
     # (Optional) still download build artifacts if you need them later
-    - task: DownloadBuildArtifacts@0
-      displayName: 'Download build outputs'
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'build-outputs'
-        downloadPath: '$(System.DefaultWorkingDirectory)'
+    # - task: DownloadBuildArtifacts@0
+    #   displayName: 'Download build outputs'
+    #   inputs:
+    #     buildType: 'current'
+    #     downloadType: 'single'
+    #     artifactName: 'build-outputs'
+    #     downloadPath: '$(System.DefaultWorkingDirectory)'
 
     # --- Gitleaks: CredScan replacement ---
     - task: Gitleaks@3
