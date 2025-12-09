@@ -49,11 +49,10 @@ application {
 sonarqube {
     properties {
         property "sonar.projectKey", "CA2_DevOps"
-        property "sonar.host.url", "http://localhost:9000"
-        property "sonar.login", "CA2_token"
+        
+        
         property "sonar.java.binaries", "build/classes/java/main"
     }
-    //CA2_token
 }
 
 // jacocoTestCoverageVerification {
