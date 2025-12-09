@@ -125,4 +125,3 @@ stages:
 #             --disableOssIndex
 
 # - script: chmod +x gradlew
-#APIkey: a57d89ea-224c-4adc-ab89-db9f5987d27f
