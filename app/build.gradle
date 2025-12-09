@@ -31,7 +31,9 @@ dependencies {
 }
 
 dependencyCheck {
-    nvdApiKey = System.getenv("a57d89ea-224c-4adc-ab89-db9f5987d27f")
+    nvd {
+        apiKey = System.getenv("a57d89ea-224c-4adc-ab89-db9f5987d27f")
+    }
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
