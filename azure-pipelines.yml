@@ -105,4 +105,23 @@ stages:
         # Noise control
         redact: true                   # hide secret values in logs
         verbose: false                 # set true while tuning rules
-  # - script: chmod +x gradlew
+
+- stage: DependencySecurity
+  displayName: 'Dependency Security Scanning'
+  jobs:
+  - job: OWASPCheck
+    steps:
+    - task: dependency-check-build-task@6
+      inputs:
+          projectName: '$(Build.Repository.Name)'
+          scanPath: '$(System.DefaultWorkingDirectory)'
+          format: 'HTML'
+          uploadReports: true
+          uploadSARIFReport: true
+          # failOnCVSS: '7' # <-- remove this line to avoid failing the job on high CVSS scores
+          nvdApiKey: 'your-nvd-api-key'  # Replace with your API key
+          additionalArguments: >
+            --disableCentral
+            --disableOssIndex
+
+# - script: chmod +x gradlew
