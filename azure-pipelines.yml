@@ -6,45 +6,49 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+- stage: Build
+  displayName: "Build/Test"
+  jobs:
+  - job: Building
+    pool:
+      vmImage: ubuntu-latest
 
-steps:
+    steps:
 
-- task: Gradle@3
-  inputs:
-    workingDirectory: ''
-    gradleWrapperFile: 'gradlew'
-    gradleOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '21'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'build jacocoTestReport'
+    - task: Gradle@3
+      inputs:
+        workingDirectory: ''
+        gradleWrapperFile: 'gradlew'
+        gradleOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '21'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/TEST-*.xml'
+        tasks: 'build jacocoTestReport'
 
-- task: PublishCodeCoverageResults@2
-  inputs:
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/build/reports/jacoco/test/jacocoTestReport.xml'
-    pathToSources: '$(System.DefaultWorkingDirectory)/app/src/main/java/'
+    - task: PublishCodeCoverageResults@2
+      inputs:
+        summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/build/reports/jacoco/test/jacocoTestReport.xml'
+        pathToSources: '$(System.DefaultWorkingDirectory)/app/src/main/java/'
 
-# - task: Gradle@3
-#   inputs:
-#     workingDirectory: ''
-#     gradleWrapperFile: 'gradlew'
-#     gradleOptions: '-Xmx3072m'
-#     javaHomeOption: 'JDKVersion'
-#     jdkVersionOption: '21'
-#     jdkArchitectureOption: 'x64'
-#     tasks: 'showProjectInfo'
+    # - task: Gradle@3
+    #   inputs:
+    #     workingDirectory: ''
+    #     gradleWrapperFile: 'gradlew'
+    #     gradleOptions: '-Xmx3072m'
+    #     javaHomeOption: 'JDKVersion'
+    #     jdkVersionOption: '21'
+    #     jdkArchitectureOption: 'x64'
+    #     tasks: 'showProjectInfo'
 
-# Run Gitleaks on Source Repository
-- task: Gitleaks@3
-  inputs:
-    scanlocation: '$(Build.SourcesDirectory)'
-    configtype: 'predefined'
-    predefinedconfigfile: 'GitleaksUdmCombo.toml'
-    reportformat: 'sarif'
+    # Run Gitleaks on Source Repository
+    - task: Gitleaks@3
+      inputs:
+        scanlocation: '$(Build.SourcesDirectory)'
+        configtype: 'predefined'
+        predefinedconfigfile: 'GitleaksUdmCombo.toml'
+        reportformat: 'sarif'
 
 - stage: SecurityScanning
   displayName: 'Security Scanning'
