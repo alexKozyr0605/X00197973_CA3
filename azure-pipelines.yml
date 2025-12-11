@@ -165,4 +165,4 @@ stages:
             --disableCentral
             --disableOssIndex
 
-- script: chmod +x gradlew
+# - script: chmod +x gradlew
