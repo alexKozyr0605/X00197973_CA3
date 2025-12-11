@@ -43,6 +43,10 @@ stages:
     #     jdkVersionOption: '21'
     #     jdkArchitectureOption: 'x64'
     #     tasks: 'showProjectInfo'
+    - script: |
+        echo "Finding JARs..."
+        find . -name "*.jar"
+      displayName: "JAR files"
 
     - task: CopyFiles@2
       inputs:
@@ -103,7 +107,6 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    # Make sure we have full git history so Gitleaks can scan commits
     - checkout: self
       fetchDepth: 0
 
@@ -120,34 +123,24 @@ stages:
     - task: Gitleaks@3
       displayName: 'Gitleaks secret scan (CredScan replacement)'
       inputs:
-        # Where to scan – normally your source repo
         scanlocation: '$(Build.SourcesDirectory)'
 
-        # Use predefined config with CredScan rules ported in
         configtype: 'predefined'
         predefinedconfigfile: 'GitleaksUdmCombo.toml'
-        # Alt: 'UDMSecretChecksv8.toml' for “pure” CredScan rules
 
-        # Scan mode:
-        # - 'smart'    -> auto-detect best mode (PR, full, etc.)
-        # - 'all'      -> all commits
-        # - 'directory'-> only current files (no git history)
         scanmode: 'smart'
 
-        # Task behaviour when secrets are found
-        taskfail: false                 # fail the task on findings
-        taskfailonexecutionerror: true # fail if Gitleaks crashes
+        taskfail: false
+        taskfailonexecutionerror: true
 
-        # Reporting
-        reportformat: 'sarif'          # works with SARIF SAST tab
+        reportformat: 'sarif'
         uploadresults: true
         reportartifactname: 'CodeAnalysisLogs'
         # reportfolder:  # default: agent temp
         # reportname:    # default: gitleaks-<timestamp>.sarif
 
-        # Noise control
-        redact: true                   # hide secret values in logs
-        verbose: false                 # set true while tuning rules
+        redact: true
+        verbose: false
 
 - stage: DependencySecurity
   displayName: 'Dependency Security Scanning'
@@ -161,8 +154,7 @@ stages:
           format: 'HTML'
           uploadReports: true
           uploadSARIFReport: true
-          # failOnCVSS: '7' # <-- remove this line to avoid failing the job on high CVSS scores
-          nvdApiKey: 'your-nvd-api-key'  # Replace with your API key
+          nvdApiKey: 'B3CC3152-BED6-F011-8366-0EBF96DE670D'  # Replace with your API key
           additionalArguments: >
             --disableCentral
             --disableOssIndex
