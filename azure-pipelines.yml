@@ -64,7 +64,7 @@ stages:
   - deployment: DeployJob
     pool:
       vmImage: 'ubuntu-latest'
-    environment: 'Dev'
+    environment: 'CA3 Environment'
     strategy:
       runOnce:
         deploy:
