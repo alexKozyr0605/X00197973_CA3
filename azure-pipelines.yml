@@ -15,6 +15,7 @@ stages:
       vmImage: ubuntu-latest
 
     steps:
+    - script: chmod +x gradlew
 
     - task: Gradle@3
       inputs:
@@ -22,7 +23,7 @@ stages:
         gradleWrapperFile: 'gradlew'
         gradleOptions: '-Xmx3072m'
         javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '21'
+        jdkVersionOption: '17'
         jdkArchitectureOption: 'x64'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
@@ -165,5 +166,3 @@ stages:
           additionalArguments: >
             --disableCentral
             --disableOssIndex
-
-# - script: chmod +x gradlew
