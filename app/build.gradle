@@ -42,6 +42,10 @@ jacoco {
     toolVersion = "0.8.10"
 }
 
+bootJar {
+    enabled = true
+}
+
 application {
     // Define the main class for the application.
     mainClass = 'org.example.App'
