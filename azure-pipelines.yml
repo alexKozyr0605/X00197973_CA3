@@ -44,9 +44,8 @@ stages:
     #     jdkArchitectureOption: 'x64'
     #     tasks: 'showProjectInfo'
     - script: |
-        echo "Finding JARs..."
-        find . -name "*.jar"
-      displayName: "JAR files"
+        mvn clean package -DskipTests
+      displayName: 'Build Spring Boot JAR'
 
     - task: CopyFiles@2
       inputs:
