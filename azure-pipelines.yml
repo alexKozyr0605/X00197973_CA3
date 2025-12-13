@@ -53,7 +53,7 @@ stages:
         contents: '**/build/libs/*SNAPSHOT.jar'
         targetFolder: '$(build.artifactStagingDirectory)'
 
-    - task: PublishBuildArtifacts@1
+    - task: PublishPipelineArtifacts@1
       inputs:
         pathToPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: 'drop'
@@ -81,15 +81,15 @@ stages:
               jdkArchitectureOption: 'x64'
               jdkSourceOption: 'PreInstalled'
           
-          - task: DownloadBuildArtifacts@0
+          - task: DownloadPipelineArtifacts@0
             inputs:
-              buildType: 'current'
-              downloadType: 'single'
+              # buildType: 'current'
+              # downloadType: 'single'
               artifactName: 'drop'
-              downloadPath: '$(System.ArtifactsDirectory)'
+              downloadPath: '$(Pipeline.Workspace)'
           
           - script: |
-              JAR_FILE=$(find $(System.ArtifactsDirectory) -name *SNAPSHOT.jar)
+              JAR_FILE=$(find $(Pipeline.Workspace) -name *SNAPSHOT.jar)
               if [ -z "$JAR_FILE" ]; then
                 echo "No JAR file found"
                 exit 1
