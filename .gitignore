@@ -1,5 +1,33 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+# Existing content
+# Gradle
+.gradle/
+build/
 
-# Ignore Gradle build output directory
-build
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Eclipse
+/.classpath
+/.settings/
+/.project
+/bin/
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Visual Studio Code
+.vscode/
+
+# Misc
+*.log
+
+# JMeter specific ignores (add these)
+**/*.jtl
+**/jmeter.log
+performance-tests/*.log
+performance-tests/results/
+# Keep JMeter test plans in git
+!**/*.jmx
