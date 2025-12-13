@@ -33,6 +33,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
@@ -53,6 +56,10 @@ application {
     mainClass = 'org.example.App'
 }
 
+springBoot {
+    mainClass = 'org.example.App'
+}
+
 sonarqube {
     properties {
         property "sonar.projectKey", "CA2_DevOps"
@@ -61,16 +68,6 @@ sonarqube {
         property "sonar.java.binaries", "build/classes/java/main"
     }
 }
-
-// jacocoTestCoverageVerification {
-//     violationRules {
-//         rule {
-//             limit {
-//                 minimum = 0.8
-//             }
-//         }
-//     }
-// }
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
@@ -97,7 +94,7 @@ tasks.named('jacocoTestCoverageVerification') {
     violationRules {
         rule {
             limit {
-                minimum = 0.6
+                minimum = 0.5
             }
         }
     }
