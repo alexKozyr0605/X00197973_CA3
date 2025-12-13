@@ -27,7 +27,7 @@ stages:
         jdkArchitectureOption: 'x64'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build jacocoTestReport'
+        tasks: 'clean test jacocoTestReport'
 
     - task: PublishCodeCoverageResults@2
       inputs:
