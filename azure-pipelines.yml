@@ -50,7 +50,7 @@ stages:
 
     - task: CopyFiles@2
       inputs:
-        contents: '**/build/libs/*SNAPSHOT.jar'
+        contents: 'app/build/libs/*.jar'
         targetFolder: '$(build.artifactStagingDirectory)'
 
     - task: PublishPipelineArtifact@1
