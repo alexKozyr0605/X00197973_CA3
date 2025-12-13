@@ -53,7 +53,7 @@ stages:
         contents: '**/build/libs/*SNAPSHOT.jar'
         targetFolder: '$(build.artifactStagingDirectory)'
 
-    - task: PublishPipelineArtifacts@1
+    - task: PublishPipelineArtifact@1
       inputs:
         pathToPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: 'drop'
@@ -81,7 +81,7 @@ stages:
               jdkArchitectureOption: 'x64'
               jdkSourceOption: 'PreInstalled'
           
-          - task: DownloadPipelineArtifacts@0
+          - task: DownloadPipelineArtifact@2
             inputs:
               # buildType: 'current'
               # downloadType: 'single'
