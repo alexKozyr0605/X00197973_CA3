@@ -150,7 +150,7 @@ stages:
           format: 'HTML'
           uploadReports: true
           uploadSARIFReport: true
-          nvdApiKey: 'B3CC3152-BED6-F011-8366-0EBF96DE670D'  # Replace with your API key
+          nvdApiKey: '$(NVD_API_KEY)'  # Replace with your API key
           additionalArguments: >
             --disableCentral
             --disableOssIndex
