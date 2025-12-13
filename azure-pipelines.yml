@@ -44,7 +44,8 @@ stages:
     #     jdkArchitectureOption: 'x64'
     #     tasks: 'showProjectInfo'
     - script: |
-        mvn clean package -DskipTests
+        ./gradlew clean build
+      workingDirectory: app
       displayName: 'Build Spring Boot JAR'
 
     - task: CopyFiles@2
