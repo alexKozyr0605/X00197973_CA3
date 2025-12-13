@@ -86,10 +86,10 @@ stages:
               # buildType: 'current'
               # downloadType: 'single'
               artifactName: 'drop'
-              downloadPath: '$(Pipeline.Workspace)'
+              downloadPath: '$(Build.ArtifactStagingDirectory)'
           
           - script: |
-              JAR_FILE=$(find $(Pipeline.Workspace) -name *SNAPSHOT.jar)
+              JAR_FILE=$(find $(Build.ArtifactStagingDirectory) -name *SNAPSHOT.jar)
               if [ -z "$JAR_FILE" ]; then
                 echo "No JAR file found"
                 exit 1
