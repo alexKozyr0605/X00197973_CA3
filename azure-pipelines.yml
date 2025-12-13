@@ -27,7 +27,7 @@ stages:
         jdkArchitectureOption: 'x64'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'clean test jacocoTestReport'
+        tasks: 'clean build jacocoTestReport'
 
     - task: PublishCodeCoverageResults@2
       inputs:
@@ -43,10 +43,6 @@ stages:
     #     jdkVersionOption: '21'
     #     jdkArchitectureOption: 'x64'
     #     tasks: 'showProjectInfo'
-    - script: |
-        ./gradlew clean build
-      workingDirectory: $(Build.SourcesDirectory)
-      displayName: 'Build Spring Boot JAR'
 
     - task: CopyFiles@2
       inputs:
@@ -89,7 +85,7 @@ stages:
               downloadPath: '$(Build.ArtifactStagingDirectory)'
           
           - script: |
-              JAR_FILE=$(find $(Build.ArtifactStagingDirectory) -name *SNAPSHOT.jar)
+              JAR_FILE=$(find $(Build.ArtifactStagingDirectory) -name *.jar)
               if [ -z "$JAR_FILE" ]; then
                 echo "No JAR file found"
                 exit 1
