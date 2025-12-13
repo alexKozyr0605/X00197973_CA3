@@ -45,7 +45,7 @@ stages:
     #     tasks: 'showProjectInfo'
     - script: |
         ./gradlew clean build
-      workingDirectory: app
+      workingDirectory: $(Build.SourcesDirectory)
       displayName: 'Build Spring Boot JAR'
 
     - task: CopyFiles@2
