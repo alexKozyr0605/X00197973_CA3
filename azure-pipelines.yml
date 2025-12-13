@@ -17,17 +17,17 @@ stages:
     steps:
     - script: chmod +x gradlew
 
-    - task: Gradle@3
-      inputs:
-        workingDirectory: ''
-        gradleWrapperFile: 'gradlew'
-        gradleOptions: '-Xmx3072m'
-        javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '17'
-        jdkArchitectureOption: 'x64'
-        publishJUnitResults: false
-        # testResultsFiles: '**/TEST-*.xml'
-        tasks: 'bootJar -x test -x jacocoTestReport'
+    # - task: Gradle@3
+    #   inputs:
+    #     workingDirectory: ''
+    #     gradleWrapperFile: 'gradlew'
+    #     gradleOptions: '-Xmx3072m'
+    #     javaHomeOption: 'JDKVersion'
+    #     jdkVersionOption: '17'
+    #     jdkArchitectureOption: 'x64'
+    #     publishJUnitResults: false
+    #     # testResultsFiles: '**/TEST-*.xml'
+    #     tasks: 'bootJar -x test -x jacocoTestReport'
 
     - task: PublishCodeCoverageResults@2
       inputs:
