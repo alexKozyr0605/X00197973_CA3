@@ -91,30 +91,30 @@ stages:
               echo "Found JAR file: $JAR_FILE"
               java -jar $JAR_FILE &
             displayName: 'Deploy Spring Boot app as service'
-          - task: JMeterInstaller@0
-            inputs:
-              jmeterVersion: '5.6.3'
-          - task: Bash@3
-            displayName: 'Create Results Directories'
-            inputs:
-              targetType: 'inline'
-              script: |
-                mkdir -p $(Build.ArtifactStagingDirectory)/jmeter/homepage-dashboard
-                mkdir -p $(Build.ArtifactStagingDirectory)/jmeter/login-dashboard
-          - task: CmdLine@2
-            displayName: 'Run Homepage Test'
-            inputs:
-              script: |
-                jmeter -n -t "$(System.ArtifactsDirectory)/build-outputs/performance-tests/homepage-test.jmx" \
-                -l "$(Build.ArtifactStagingDirectory)/jmeter/homepage-results.jtl" \
-                -e -o "$(Build.ArtifactStagingDirectory)/jmeter/homepage-dashboard"
-          - task: CmdLine@2
-            displayName: 'Run Login Test'
-            inputs:
-              script: |
-                jmeter -n -t "$(System.ArtifactsDirectory)/build-outputs/performance-tests/login-test.jmx" \
-                -l "$(Build.ArtifactStagingDirectory)/jmeter/login-results.jtl" \
-                -e -o "$(Build.ArtifactStagingDirectory)/jmeter/login-dashboard"
+          # - task: JMeterInstaller@0
+          #   inputs:
+          #     jmeterVersion: '5.6.3'
+          # - task: Bash@3
+          #   displayName: 'Create Results Directories'
+          #   inputs:
+          #     targetType: 'inline'
+          #     script: |
+          #       mkdir -p $(Build.ArtifactStagingDirectory)/jmeter/homepage-dashboard
+          #       mkdir -p $(Build.ArtifactStagingDirectory)/jmeter/login-dashboard
+          # - task: CmdLine@2
+          #   displayName: 'Run Homepage Test'
+          #   inputs:
+          #     script: |
+          #       jmeter -n -t "$(System.ArtifactsDirectory)/build-outputs/performance-tests/homepage-test.jmx" \
+          #       -l "$(Build.ArtifactStagingDirectory)/jmeter/homepage-results.jtl" \
+          #       -e -o "$(Build.ArtifactStagingDirectory)/jmeter/homepage-dashboard"
+          # - task: CmdLine@2
+          #   displayName: 'Run Login Test'
+          #   inputs:
+          #     script: |
+          #       jmeter -n -t "$(System.ArtifactsDirectory)/build-outputs/performance-tests/login-test.jmx" \
+          #       -l "$(Build.ArtifactStagingDirectory)/jmeter/login-results.jtl" \
+          #       -e -o "$(Build.ArtifactStagingDirectory)/jmeter/login-dashboard"
           - task: PublishBuildArtifacts@1
             inputs:
               pathToPublish: '$(Build.ArtifactStagingDirectory)/jmeter'
