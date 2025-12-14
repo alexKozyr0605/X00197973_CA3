@@ -94,38 +94,6 @@ stages:
               # Find Java 21 path
               JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
               echo "JAVA_HOME: $JAVA_HOME"
-              
-              # Copy JAR to a permanent location
-              sudo mkdir -p /opt/springapp
-              sudo cp "$JAR_FILE" /opt/springapp/app.jar
-              
-              # Create service file
-              sudo tee /etc/systemd/system/springapp.service << EOF
-              [Unit]
-              Description=Spring Boot Application
-              After=network.target
-              
-              [Service]
-              Type=simple
-              User=vsts
-              Environment="JAVA_HOME=$JAVA_HOME"
-              ExecStart=$JAVA_HOME/bin/java -jar -Dserver.address=0.0.0.0 /opt/springapp/app.jar
-              Restart=always
-              WorkingDirectory=/opt/springapp
-              
-              [Install]
-              WantedBy=multi-user.target
-              EOF
-              
-              # Start service
-              sudo systemctl daemon-reload
-              sudo systemctl enable springapp
-              sudo systemctl start springapp
-              
-              # Check status and logs
-              sleep 5
-              sudo systemctl status springapp
-              sudo journalctl -u springapp --no-pager -n 50
             displayName: 'Deploy Spring Boot app as service'
           - task: JMeterInstaller@0
             inputs:
