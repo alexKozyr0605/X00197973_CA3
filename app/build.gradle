@@ -38,6 +38,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.seleniumhq.selenium:selenium-java:4.27.0'
+    testImplementation 'io.cucumber:cucumber-java:7.15.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.15.0'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.15.0'
+    testImplementation 'org.junit.platform:junit-platform-suite:1.10.1'
 }
 
 group = 'com.example'
@@ -60,8 +64,8 @@ bootJar {
 
 application {
     // Define the main class for the application.
-    // mainClass = 'org.example.App'
-    mainClass = 'org.example.Spring'
+    mainClass = 'org.example.App'
+    // mainClass = 'org.example.Spring'
 }
 
 sonarqube {
