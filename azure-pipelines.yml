@@ -77,7 +77,7 @@ stages:
               jdkArchitectureOption: 'x64'
               jdkSourceOption: 'PreInstalled'
           
-          - task: DownloadBuildArtifact@2
+          - task: DownloadPipelineArtifact@2
             inputs:
               buildType: 'current'
               downloadType: 'single'
