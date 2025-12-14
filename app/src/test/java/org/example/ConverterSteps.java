@@ -21,11 +21,6 @@ public class ConverterSteps {
         result = converter.yenConverter();
     }
 
-    // @When("I convert yen to euros")
-    // public void i_convert_yen_to_euros() {
-    //     result = converter.euroConverter();
-    // }
-
     @Then("the result should be {double}")
     public void converted_amount_is(Double expected) {
         assertEquals(expected, result, 0.01); // tolerance for decimals

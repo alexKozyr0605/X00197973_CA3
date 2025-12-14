@@ -54,13 +54,6 @@ stages:
         pathToPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: 'drop'
 
-    # - task: Gitleaks@3
-    #   inputs:
-    #     scanlocation: '$(Build.SourcesDirectory)'
-    #     configtype: 'predefined'
-    #     predefinedconfigfile: 'GitleaksUdmCombo.toml'
-    #     reportformat: 'sarif'
-
 - stage: Deploy
   jobs:
   - deployment: DeployJob
@@ -91,34 +84,6 @@ stages:
               echo "Found JAR file: $JAR_FILE"
               java -jar $JAR_FILE &
             displayName: 'Deploy Spring Boot app as service'
-          # - task: JMeterInstaller@0
-          #   inputs:
-          #     jmeterVersion: '5.6.3'
-          # - task: Bash@3
-          #   displayName: 'Create Results Directories'
-          #   inputs:
-          #     targetType: 'inline'
-          #     script: |
-          #       mkdir -p $(Build.ArtifactStagingDirectory)/jmeter/homepage-dashboard
-          #       mkdir -p $(Build.ArtifactStagingDirectory)/jmeter/login-dashboard
-          # - task: CmdLine@2
-          #   displayName: 'Run Homepage Test'
-          #   inputs:
-          #     script: |
-          #       jmeter -n -t "$(System.ArtifactsDirectory)/build-outputs/performance-tests/homepage-test.jmx" \
-          #       -l "$(Build.ArtifactStagingDirectory)/jmeter/homepage-results.jtl" \
-          #       -e -o "$(Build.ArtifactStagingDirectory)/jmeter/homepage-dashboard"
-          # - task: CmdLine@2
-          #   displayName: 'Run Login Test'
-          #   inputs:
-          #     script: |
-          #       jmeter -n -t "$(System.ArtifactsDirectory)/build-outputs/performance-tests/login-test.jmx" \
-          #       -l "$(Build.ArtifactStagingDirectory)/jmeter/login-results.jtl" \
-          #       -e -o "$(Build.ArtifactStagingDirectory)/jmeter/login-dashboard"
-          # - task: PublishBuildArtifacts@1
-          #   inputs:
-          #     pathToPublish: '$(Build.ArtifactStagingDirectory)/jmeter'
-          #     artifactName: 'jmeter-results'
 
 - stage: SecurityScanning
   displayName: 'Security Scanning'
@@ -132,16 +97,6 @@ stages:
     - checkout: self
       fetchDepth: 0
 
-    # (Optional) still download the build artifacts if you need them later
-    # - task: DownloadBuildArtifacts@0
-    #   displayName: 'Download build outputs'
-    #   inputs:
-    #     buildType: 'current'
-    #     downloadType: 'single'
-    #     artifactName: 'build-outputs'
-    #     downloadPath: '$(System.DefaultWorkingDirectory)'
-
-    # --- Gitleaks: CredScan replacement ---
     - task: Gitleaks@3
       displayName: 'Gitleaks secret scan (CredScan replacement)'
       inputs:
@@ -158,8 +113,6 @@ stages:
         reportformat: 'sarif'
         uploadresults: true
         reportartifactname: 'CodeAnalysisLogs'
-        # reportfolder:  # default: agent temp
-        # reportname:    # default: gitleaks-<timestamp>.sarif
 
         redact: true
         verbose: false
@@ -176,7 +129,7 @@ stages:
           format: 'HTML'
           uploadReports: true
           uploadSARIFReport: true
-          nvdApiKey: '$(NVD_API_KEY)'  # Replace with your API key
+          nvdApiKey: '$(NVD_API_KEY)'
           additionalArguments: >
             --disableCentral
             --disableOssIndex
