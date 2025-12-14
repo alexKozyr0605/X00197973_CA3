@@ -53,11 +53,8 @@ bootJar {
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.example.App'
-}
-
-springBoot {
-    mainClass = 'org.example.App'
+    // mainClass = 'org.example.App'
+    mainClass = 'org.example.Spring'
 }
 
 sonarqube {
