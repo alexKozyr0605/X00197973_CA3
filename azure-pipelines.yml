@@ -77,80 +77,80 @@ stages:
               jdkArchitectureOption: 'x64'
               jdkSourceOption: 'PreInstalled'
           
-          - task: DownloadPipelineArtifact@2
+          - task: DownloadBuildArtifact@2
             inputs:
-              # buildType: 'current'
-              # downloadType: 'single'
+              buildType: 'current'
+              downloadType: 'single'
               artifactName: 'drop'
               downloadPath: '$(Build.ArtifactStagingDirectory)'
           
-          - script: |
-              JAR_FILE=$(find $(Build.ArtifactStagingDirectory) -name *.jar)
-              if [ -z "$JAR_FILE" ]; then
-                echo "No JAR file found"
-                exit 1
-              fi
-              echo "Found JAR file: $JAR_FILE"
-              java -jar $JAR_FILE &
-            displayName: 'Deploy Spring Boot app'
+          # - script: |
+          #     JAR_FILE=$(find $(Build.ArtifactStagingDirectory) -name *.jar)
+          #     if [ -z "$JAR_FILE" ]; then
+          #       echo "No JAR file found"
+          #       exit 1
+          #     fi
+          #     echo "Found JAR file: $JAR_FILE"
+          #     java -jar $JAR_FILE &
+          #   displayName: 'Deploy Spring Boot app'
 
-- stage: SecurityScanning
-  displayName: 'Security Scanning'
-  jobs:
-  - job: SecurityCheck
-    displayName: 'Security Check'
-    pool:
-      vmImage: 'ubuntu-latest'
+# - stage: SecurityScanning
+#   displayName: 'Security Scanning'
+#   jobs:
+#   - job: SecurityCheck
+#     displayName: 'Security Check'
+#     pool:
+#       vmImage: 'ubuntu-latest'
 
-    steps:
-    - checkout: self
-      fetchDepth: 0
+#     steps:
+#     - checkout: self
+#       fetchDepth: 0
 
-    # (Optional) still download the build artifacts if you need them later
-    # - task: DownloadBuildArtifacts@0
-    #   displayName: 'Download build outputs'
-    #   inputs:
-    #     buildType: 'current'
-    #     downloadType: 'single'
-    #     artifactName: 'build-outputs'
-    #     downloadPath: '$(System.DefaultWorkingDirectory)'
+#     # (Optional) still download the build artifacts if you need them later
+#     # - task: DownloadBuildArtifacts@0
+#     #   displayName: 'Download build outputs'
+#     #   inputs:
+#     #     buildType: 'current'
+#     #     downloadType: 'single'
+#     #     artifactName: 'build-outputs'
+#     #     downloadPath: '$(System.DefaultWorkingDirectory)'
 
-    # --- Gitleaks: CredScan replacement ---
-    - task: Gitleaks@3
-      displayName: 'Gitleaks secret scan (CredScan replacement)'
-      inputs:
-        scanlocation: '$(Build.SourcesDirectory)'
+#     # --- Gitleaks: CredScan replacement ---
+#     - task: Gitleaks@3
+#       displayName: 'Gitleaks secret scan (CredScan replacement)'
+#       inputs:
+#         scanlocation: '$(Build.SourcesDirectory)'
 
-        configtype: 'predefined'
-        predefinedconfigfile: 'GitleaksUdmCombo.toml'
+#         configtype: 'predefined'
+#         predefinedconfigfile: 'GitleaksUdmCombo.toml'
 
-        scanmode: 'smart'
+#         scanmode: 'smart'
 
-        taskfail: false
-        taskfailonexecutionerror: true
+#         taskfail: false
+#         taskfailonexecutionerror: true
 
-        reportformat: 'sarif'
-        uploadresults: true
-        reportartifactname: 'CodeAnalysisLogs'
-        # reportfolder:  # default: agent temp
-        # reportname:    # default: gitleaks-<timestamp>.sarif
+#         reportformat: 'sarif'
+#         uploadresults: true
+#         reportartifactname: 'CodeAnalysisLogs'
+#         # reportfolder:  # default: agent temp
+#         # reportname:    # default: gitleaks-<timestamp>.sarif
 
-        redact: true
-        verbose: false
+#         redact: true
+#         verbose: false
 
-- stage: DependencySecurity
-  displayName: 'Dependency Security Scanning'
-  jobs:
-  - job: OWASPCheck
-    steps:
-    - task: dependency-check-build-task@6
-      inputs:
-          projectName: '$(Build.Repository.Name)'
-          scanPath: '$(System.DefaultWorkingDirectory)'
-          format: 'HTML'
-          uploadReports: true
-          uploadSARIFReport: true
-          nvdApiKey: '$(NVD_API_KEY)'  # Replace with your API key
-          additionalArguments: >
-            --disableCentral
-            --disableOssIndex
+# - stage: DependencySecurity
+#   displayName: 'Dependency Security Scanning'
+#   jobs:
+#   - job: OWASPCheck
+#     steps:
+#     - task: dependency-check-build-task@6
+#       inputs:
+#           projectName: '$(Build.Repository.Name)'
+#           scanPath: '$(System.DefaultWorkingDirectory)'
+#           format: 'HTML'
+#           uploadReports: true
+#           uploadSARIFReport: true
+#           nvdApiKey: '$(NVD_API_KEY)'  # Replace with your API key
+#           additionalArguments: >
+#             --disableCentral
+#             --disableOssIndex
